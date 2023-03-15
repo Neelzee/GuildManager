@@ -45,13 +45,10 @@ public class CombatHud {
 
         button.add(test);
 
-        button.addListener(new EventListener()
-        {
+        button.addListener(new ClickListener() {
             @Override
-            public boolean handle(Event event)
-            {
-                System.out.println("YO");
-                return false;
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Thomas e BIG BRAIN!");
             }
         });
 
