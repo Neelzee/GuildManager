@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fof.nmf.engine.renderer.GameRenderer;
 import com.fof.nmf.utils.SpritePaths;
 
-public class CombatHud {
+public class CombatHud implements IHud {
     private final Stage stage;
 
     private final Viewport viewport;
@@ -61,5 +61,10 @@ public class CombatHud {
 
     public Stage getStage() {
         return stage;
+    }
+
+    @Override
+    public void update(float dt) {
+
     }
 }

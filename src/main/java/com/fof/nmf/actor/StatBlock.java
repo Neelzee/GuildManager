@@ -54,12 +54,26 @@ public class StatBlock {
     /**
      * Damage Types that the Instance is resistant too, i.e. they take 50% less damage from that type
      */
-    protected ArrayList<DamageType> resistances;
+    protected ArrayList<DamageType> resistances = new ArrayList<>();
 
     /**
      * Damage Types that the Instance is immune too, i.e. they take no damage from that type
      */
-    protected ArrayList<DamageType> immune;
+    protected ArrayList<DamageType> immune = new ArrayList<>();
+
+    public StatBlock() {
+        maxHp = 4;
+        currentHp = maxHp;
+        strength = 10;
+        constitution = 10;
+        dexterity = 10;
+        wisdom = 10;
+        intelligence = 10;
+        charisma = 10;
+        moveSpeed = 30;
+        proficiency = 0;
+        initiativeBonus = 0;
+    }
 
     public int getMaxHp() {
         return maxHp;
