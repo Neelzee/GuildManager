@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fof.nmf.scene.hud.CombatHud;
+import com.fof.nmf.scene.hud.IHud;
 import com.fof.nmf.sprite.GameSprite;
 import com.fof.nmf.tilemaps.TiledMapGenerator;
 
@@ -57,7 +58,7 @@ public class GameRenderer implements Disposable {
      */
     private final Viewport gamePort;
 
-    private CombatHud hud;
+    private IHud hud;
 
     public GameRenderer(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
@@ -67,11 +68,10 @@ public class GameRenderer implements Disposable {
         gamePort.setCamera(camera);
         this.currentMap = new TiledMapGenerator(64, 64).generateMap();
         this.mapRenderer = new OrthogonalTiledMapRenderer(currentMap, 1f);
-        this.hud = new CombatHud(spriteBatch);
     }
 
-    public void setCamera(OrthographicCamera camera) {
-        this.camera = camera;
+    public void setHud(IHud hud) {
+        this.hud = hud;
     }
 
     public void render(float dt) {
@@ -89,6 +89,7 @@ public class GameRenderer implements Disposable {
     }
 
     public void update(float dt) {
+        hud.update(dt);
         camera.update();
         mapRenderer.setView(camera);
         for (IGameUpdate actor : gameUpdates) {
@@ -121,5 +122,9 @@ public class GameRenderer implements Disposable {
 
     public void addGameSprite(IGameSprite sprite) {
         gameSprites.add(sprite);
+    }
+
+    public SpriteBatch getSpriteBatch() {
+        return spriteBatch;
     }
 }
