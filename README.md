@@ -1,5 +1,9 @@
 # READ ME
 
+## Project
+
+Uses `Java 17`
+
 ## Game Idea
 
 You play as an adventurous guild, that manages adventure parties that go out into the world, fight through dungeons,
@@ -18,7 +22,7 @@ Adventurer stats work similar/same as DND stats
 ## TODO:
 
 - [ ] Change file paths to snake_case
-- [ ] Implement stat-blocks
+- [x] Implement stat-blocks
 - [ ] Add enemies
 - [ ] Implement a party battle system
   - [ ] Change party size
