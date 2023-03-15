@@ -46,21 +46,13 @@ public class Adventurer extends StatBlock implements IActionBlock {
      *
      * @param advantage if the Instance has advantage or not
      */
-    public void savingThrow(boolean advantage) {
-        int dice = MathUtils.random(0, 21);
+    public boolean savingThrow(boolean advantage) {
+        int dice = MathUtils.random(1, 20);
         if (advantage) {
-            int d2 = MathUtils.random(0, 21);
+            int d2 = MathUtils.random(1, 20);
             if (d2 > dice) {
                 dice = d2;
             }
-        }
-
-        // d20
-        if (dice == 21) {
-            throw new RuntimeException("End is inclusive");
-        }
-        if (dice == 0) {
-            throw new RuntimeException("Start is inclusive");
         }
 
         if (2 * savingThrowsLimit < savingThrows.size()) {
@@ -70,6 +62,7 @@ public class Adventurer extends StatBlock implements IActionBlock {
         if (dice == 20) {
             currentHp = 1;
             savingThrows.clear();
+            return true;
         }
 
         savingThrows.add(dice <= 10);
@@ -78,6 +71,8 @@ public class Adventurer extends StatBlock implements IActionBlock {
         if (savingThrows.size() >= 3) {
             checkSavingThrows();
         }
+
+        return dice <= 10;
     }
 
     @Override
