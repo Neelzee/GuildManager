@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.fof.nmf.actor.DamageType;
 import com.fof.nmf.actor.IActionBlock;
 import com.fof.nmf.actor.StatBlock;
+import com.fof.nmf.utils.GameDice;
 import com.fof.nmf.utils.Modifier;
 
 import java.util.ArrayList;
@@ -95,6 +96,12 @@ public class Adventurer extends StatBlock implements IActionBlock {
     @Override
     public int rollInitiative() {
         return MathUtils.random(1, 20) + initiativeBonus;
+    }
+
+    @Override
+    public int getDamage(boolean crit) {
+        int val = GameDice.d12();
+        return (crit ? 2 * val : val) + proficiency + strength;
     }
 
     @Override

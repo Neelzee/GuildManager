@@ -12,7 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.fof.nmf.actor.DamageType;
 import com.fof.nmf.actor.StatBlock;
+import com.fof.nmf.app.DungeonGame;
+import com.fof.nmf.engine.combat.CombatEngine;
 
 public class StatBlockHud extends GameHud {
 
@@ -26,11 +29,14 @@ public class StatBlockHud extends GameHud {
 
     private final BitmapFont font = new BitmapFont();
 
-    private final StatBlock block;
+    private StatBlock block;
 
-    public StatBlockHud(SpriteBatch sb, StatBlock block) {
+    private final CombatEngine combatEngine;
+
+    public StatBlockHud(SpriteBatch sb, CombatEngine combatEngine) {
         super(sb);
-        this.block = block;
+        this.block = combatEngine.getCurrentStatBlockInstance();
+        this.combatEngine = combatEngine;
         this.hp = new Label(
                 MathUtils.floor(block.getCurrentHp()) + "/" + block.getMaxHp(),
                 new LabelStyle(
@@ -51,7 +57,26 @@ public class StatBlockHud extends GameHud {
         actionButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("ACTION!");
+                float attackVal = combatEngine.getCurrentActionInstance().attack();
+                boolean crit = attackVal
+                        - combatEngine.getCurrentStatBlockInstance().getProficiency()
+                        - combatEngine.getCurrentStatBlockInstance().getStrength() == 20;
+
+                System.out.println("Rolled: " + attackVal + " to attack.");
+                StatBlock enemy = combatEngine.getEnemies()[0];
+                System.out.println(enemy.tryAttack(attackVal) ? "Hit!" : "Miss!");
+                float dmg = combatEngine.getCurrentActionInstance().getDamage(crit);
+                if (crit) {
+                    System.out.println("Crit!");
+                }
+                enemy.takeDamage(dmg, DamageType.None);
+                System.out.println("Did: " + dmg + " damage!");
+
+                if (enemy.isDead()) {
+                    System.out.println("Enemy died!");
+                }
+
+                combatEngine.nextTurn();
             }
         });
 
@@ -96,10 +121,13 @@ public class StatBlockHud extends GameHud {
         table.add(buttons).row();
 
         stage.addActor(table);
+
+        DungeonGame.getGame().getGameInputHandler().addInputProcess(stage);
     }
 
     @Override
     public void update(float dt) {
+        this.block = combatEngine.getCurrentStatBlockInstance();
         hp.setText(MathUtils.floor(block.getCurrentHp()) + "/" + block.getMaxHp());
     }
 }

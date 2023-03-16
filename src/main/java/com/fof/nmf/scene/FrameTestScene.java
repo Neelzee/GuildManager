@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.utils.SpritePaths;
-import com.fof.nmf.handlers.GameInputHandler;
 import com.fof.nmf.sprite.GameSprite;
 import com.fof.nmf.sprite.frame.GameButton;
 import com.fof.nmf.sprite.frame.GameFrame;
@@ -55,9 +54,6 @@ public class FrameTestScene extends GameScene {
         button.setLocalPositionCenter(new Vector2(background.getWidth() / 2, background.getHeight() / 2));
 
         InputMultiplexer multiplexer = new InputMultiplexer();
-        GameInputHandler inputHandler = new GameInputHandler(game.getGameRenderer().getGamePort());
-        inputHandler.addClicker(button);
-        multiplexer.addProcessor(inputHandler);
         Gdx.input.setInputProcessor(multiplexer);
         frame = new GameFrame(background, new Vector2(100, 100));
         frame.addChild(button);

@@ -1,5 +1,7 @@
 package com.fof.nmf.actor;
 
+import com.fof.nmf.utils.GameDice;
+
 import java.util.ArrayList;
 
 public class StatBlock {
@@ -151,7 +153,6 @@ public class StatBlock {
             currentHp -= damage;
         }
     }
-
 
     public boolean isDead() {
 

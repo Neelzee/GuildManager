@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.fof.nmf.actor.entity.GameEntity;
 import com.fof.nmf.scene.hud.CombatHud;
 import com.fof.nmf.scene.hud.IHud;
 import com.fof.nmf.sprite.GameSprite;
@@ -77,8 +78,6 @@ public class GameRenderer implements Disposable {
     public void render(float dt) {
         spriteBatch.setProjectionMatrix(camera.combined);
         mapRenderer.render();
-        hud.getStage().act(dt);
-        hud.getStage().draw();
         spriteBatch.begin();
         for (IGameSprite gSprite : gameSprites) {
             for (GameSprite s : gSprite.getGameSprite()) {
@@ -86,6 +85,10 @@ public class GameRenderer implements Disposable {
             }
         }
         spriteBatch.end();
+
+        // Since hud is drawn last, all sprites are below the hud
+        hud.getStage().act(dt);
+        hud.getStage().draw();
     }
 
     public void update(float dt) {
@@ -126,5 +129,13 @@ public class GameRenderer implements Disposable {
 
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;
+    }
+
+    public void removeGameSprites(GameSprite gameSprite) {
+        gameSprites.remove(gameSprite);
+    }
+
+    public void removeIGameUpdate(IGameUpdate updater) {
+        gameUpdates.remove(updater);
     }
 }

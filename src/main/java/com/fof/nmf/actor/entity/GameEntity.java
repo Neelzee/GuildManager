@@ -7,7 +7,7 @@ import com.fof.nmf.actor.ActorState;
 import com.fof.nmf.actor.GameActor;
 import com.fof.nmf.sprite.GameSprite;
 
-public abstract class GameEntity extends GameActor {
+public class GameEntity extends GameActor {
     public GameEntity(GameSprite gSprite, TextureRegion[][] textures, float animationCycle) {
         super(gSprite, textures, animationCycle);
     }
