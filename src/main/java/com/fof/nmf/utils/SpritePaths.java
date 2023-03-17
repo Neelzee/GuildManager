@@ -34,4 +34,8 @@ public class SpritePaths {
     public static String getHighlightPath() {
         return HighlightPath;
     }
+
+    public static String getGangBlancPath() {
+        return GangblancPath;
+    }
 }

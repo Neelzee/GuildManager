@@ -1,4 +1,4 @@
-package com.fof.nmf.actor;
+package com.fof.nmf.entity.actor;
 
 public enum ActorState {
     NONE(-1),

@@ -1,22 +1,26 @@
 package com.fof.nmf.engine.combat;
 
-import com.fof.nmf.actor.IActionBlock;
+import com.badlogic.gdx.math.Vector2;
+import com.fof.nmf.entity.stats.IActionBlock;
+import com.fof.nmf.entity.stats.StatBlock;
+import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.engine.renderer.IGameSprite;
 import com.fof.nmf.engine.renderer.IGameUpdate;
 import com.fof.nmf.party.GameParty;
 import com.fof.nmf.sprite.GameSprite;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class CombatEngine implements IGameUpdate, IGameSprite {
     private final GameParty adventurerParty;
 
     private final GameParty monsterParty;
 
-    private final IActionBlock[] turnOrder;
+    private final IActionBlock[] actionBlocks;
+
+    private final StatBlock[] statBlocks;
+
+    private final GameSprite[] gameSprites;
 
     private int turn = 0;
 
@@ -24,26 +28,47 @@ public class CombatEngine implements IGameUpdate, IGameSprite {
         this.adventurerParty = adventurerParty;
         this.monsterParty = monsterParty;
 
-        ArrayList<IActionBlock> turnOrder = new ArrayList<>();
-        ArrayList<Integer> initiativeOrder = new ArrayList<>();
-        turnOrder.addAll(List.of(adventurerParty.getActionBlockMembers()));
-        turnOrder.addAll(List.of(monsterParty.getActionBlockMembers()));
+        ArrayList<IActionBlock> actionBlocks = new ArrayList<>();
+        ArrayList<StatBlock> statBlocks = new ArrayList<>();
+        ArrayList<GameSprite> gameSprites = new ArrayList<>();
 
-        for (IActionBlock init : turnOrder) {
+
+        ArrayList<Integer> initiativeOrder = new ArrayList<>();
+        actionBlocks.addAll(List.of(adventurerParty.getActionBlockMembers()));
+        actionBlocks.addAll(List.of(monsterParty.getActionBlockMembers()));
+        statBlocks.addAll(List.of(adventurerParty.getStatBlockMembers()));
+        statBlocks.addAll(List.of(monsterParty.getStatBlockMembers()));
+        gameSprites.addAll(List.of(adventurerParty.getGameSprite()));
+        gameSprites.addAll(List.of(monsterParty.getGameSprite()));
+
+        for (IActionBlock init : actionBlocks) {
             initiativeOrder.add(init.rollInitiative());
         }
 
-        turnOrder.sort(Comparator.comparingInt(o -> initiativeOrder.get(turnOrder.indexOf(o))));
+        actionBlocks.sort(Comparator.comparingInt(o -> initiativeOrder.get(actionBlocks.indexOf(o))));
+        statBlocks.sort(Comparator.comparingInt(o -> initiativeOrder.get(statBlocks.indexOf(o))));
+        gameSprites.sort(Comparator.comparingInt(o -> initiativeOrder.get(gameSprites.indexOf(o))));
 
-        this.turnOrder = turnOrder.toArray(new IActionBlock[0]);
+        this.actionBlocks = actionBlocks.toArray(new IActionBlock[0]);
+        this.statBlocks = statBlocks.toArray(new StatBlock[0]);
+        this.gameSprites = gameSprites.toArray(new GameSprite[0]);
     }
 
     /**
      * Returns the current IAction instance, as specified by the initiative.
      */
     public IActionBlock getCurrentActionInstance() {
-        return turnOrder[turn % turnOrder.length];
+        return actionBlocks[turn % actionBlocks.length];
     }
+
+    public StatBlock getCurrentStatBlockInstance() {
+        return statBlocks[turn % statBlocks.length];
+    }
+
+    public GameSprite getCurrentGameSpriteInstance() {
+        return gameSprites[turn % gameSprites.length];
+    }
+
 
     public void nextTurn() {
         turn++;
@@ -59,7 +84,15 @@ public class CombatEngine implements IGameUpdate, IGameSprite {
 
     @Override
     public void update(float dt) {
-        monsterParty.update(dt);
-        adventurerParty.update(dt);
+        Vector2 pos = getCurrentGameSpriteInstance().getPosition();
+        DungeonGame.getGame().getGameRenderer().getCamera().position.x = pos.x;
+        DungeonGame.getGame().getGameRenderer().getCamera().position.y = pos.y;
+    }
+
+    public StatBlock[] getEnemies() {
+        if (Arrays.stream(adventurerParty.getActionBlockMembers()).toList().contains(getCurrentActionInstance())) {
+            return monsterParty.getStatBlockMembers();
+        }
+        return adventurerParty.getStatBlockMembers();
     }
 }

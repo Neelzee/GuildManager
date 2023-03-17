@@ -1,4 +1,4 @@
-package com.fof.nmf.actor;
+package com.fof.nmf.entity.stats;
 
 public interface IActionBlock {
 
@@ -15,4 +15,9 @@ public interface IActionBlock {
      * @return Initiative = d20 + initiative modifier
      */
     int rollInitiative();
+
+    /**
+     * Returns damage = d12 + proficiency + strength
+     */
+    int getDamage(boolean crit);
 }
