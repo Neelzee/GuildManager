@@ -36,7 +36,7 @@ public class MainWorldScene extends GameScene {
         }
 
         game.getGameInputHandler().addInputProcess(cameraHandler);
-        game.getGameRenderer().setHud(null);
+        game.getGameRenderer().setHud(new MainWorldHud(game.getGameRenderer().getSpriteBatch()));
     }
 
     @Override
