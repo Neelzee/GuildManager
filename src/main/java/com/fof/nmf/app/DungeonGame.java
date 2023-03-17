@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fof.nmf.engine.input.GameInputHandler;
 import com.fof.nmf.engine.renderer.GameRenderer;
-import com.fof.nmf.scene.AdventurerPartyScene;
-import com.fof.nmf.scene.MainMenuScene;
+import com.fof.nmf.scene.GameScene;
+import com.fof.nmf.scene.main_menu.MainMenuScene;
 
 public class DungeonGame extends Game {
 

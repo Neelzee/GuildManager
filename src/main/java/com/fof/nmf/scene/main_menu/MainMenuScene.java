@@ -1,9 +1,9 @@
-package com.fof.nmf.scene;
+package com.fof.nmf.scene.main_menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.fof.nmf.app.DungeonGame;
-import com.fof.nmf.scene.hud.MainMenuHud;
+import com.fof.nmf.scene.GameScene;
 import com.fof.nmf.sprite.GameSprite;
 import com.fof.nmf.utils.SpritePaths;
 
