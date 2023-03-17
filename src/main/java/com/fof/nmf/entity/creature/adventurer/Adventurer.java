@@ -1,15 +1,18 @@
-package com.fof.nmf.actor.adventurer;
+package com.fof.nmf.entity.creature.adventurer;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.fof.nmf.actor.DamageType;
-import com.fof.nmf.actor.IActionBlock;
-import com.fof.nmf.actor.StatBlock;
+import com.fof.nmf.entity.actor.DamageType;
+import com.fof.nmf.entity.actor.GameActor;
+import com.fof.nmf.entity.creature.GameCreature;
+import com.fof.nmf.entity.stats.GameClass;
+import com.fof.nmf.entity.stats.IActionBlock;
+import com.fof.nmf.entity.stats.StatBlock;
 import com.fof.nmf.utils.GameDice;
 import com.fof.nmf.utils.Modifier;
 
 import java.util.ArrayList;
 
-public class Adventurer extends StatBlock implements IActionBlock {
+public class Adventurer extends GameCreature {
 
     private GameClass gClass;
 
@@ -31,6 +34,10 @@ public class Adventurer extends StatBlock implements IActionBlock {
      * If the instance has failed all saving throws, or has less currenHp than negative maxHp
      */
     protected boolean isDead;
+
+    public Adventurer(GameActor gameActor) {
+        super(gameActor);
+    }
 
 
     /**
@@ -88,21 +95,6 @@ public class Adventurer extends StatBlock implements IActionBlock {
         isInstantDead();
     }
 
-    @Override
-    public float attack() {
-        return MathUtils.random(1, 20) + proficiency + Modifier.getModifier(strength);
-    }
-
-    @Override
-    public int rollInitiative() {
-        return MathUtils.random(1, 20) + initiativeBonus;
-    }
-
-    @Override
-    public int getDamage(boolean crit) {
-        int val = GameDice.d12();
-        return (crit ? 2 * val : val) + proficiency + strength;
-    }
 
     @Override
     public boolean isDead() {
@@ -139,4 +131,5 @@ public class Adventurer extends StatBlock implements IActionBlock {
             isDead = true;
         }
     }
+
 }

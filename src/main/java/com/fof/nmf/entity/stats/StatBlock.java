@@ -1,6 +1,6 @@
-package com.fof.nmf.actor;
+package com.fof.nmf.entity.stats;
 
-import com.fof.nmf.utils.GameDice;
+import com.fof.nmf.entity.actor.DamageType;
 
 import java.util.ArrayList;
 

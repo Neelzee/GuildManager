@@ -1,9 +1,8 @@
 package com.fof.nmf.engine.combat;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.fof.nmf.actor.IActionBlock;
-import com.fof.nmf.actor.StatBlock;
+import com.fof.nmf.entity.stats.IActionBlock;
+import com.fof.nmf.entity.stats.StatBlock;
 import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.engine.renderer.IGameSprite;
 import com.fof.nmf.engine.renderer.IGameUpdate;

@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.fof.nmf.actor.DamageType;
-import com.fof.nmf.actor.StatBlock;
+import com.fof.nmf.entity.actor.DamageType;
+import com.fof.nmf.entity.stats.StatBlock;
 import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.engine.combat.CombatEngine;
 

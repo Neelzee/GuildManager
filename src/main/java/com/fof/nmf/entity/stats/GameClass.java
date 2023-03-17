@@ -1,4 +1,4 @@
-package com.fof.nmf.actor.adventurer;
+package com.fof.nmf.entity.stats;
 
 public enum GameClass {
     Bard,

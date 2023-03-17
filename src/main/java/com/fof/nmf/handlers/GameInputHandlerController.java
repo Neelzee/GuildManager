@@ -3,7 +3,6 @@ package com.fof.nmf.handlers;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.fof.nmf.actor.adventurer.Adventurer;
 
 /**
  * Handles selecting party members

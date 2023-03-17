@@ -1,11 +1,11 @@
 package com.fof.nmf.party;
 
-import com.fof.nmf.actor.GameActor;
-import com.fof.nmf.actor.IActionBlock;
-import com.fof.nmf.actor.StatBlock;
-import com.fof.nmf.actor.adventurer.Adventurer;
-import com.fof.nmf.actor.entity.GameEntity;
-import com.fof.nmf.actor.monster.Monster;
+import com.fof.nmf.entity.actor.GameActor;
+import com.fof.nmf.entity.creature.GameCreature;
+import com.fof.nmf.entity.stats.IActionBlock;
+import com.fof.nmf.entity.stats.StatBlock;
+import com.fof.nmf.entity.creature.adventurer.Adventurer;
+import com.fof.nmf.entity.creature.monster.Monster;
 import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.engine.renderer.IGameSprite;
 import com.fof.nmf.engine.renderer.IGameUpdate;
@@ -19,7 +19,7 @@ public class GameParty implements IGameUpdate, IGameSprite {
 
     private final ArrayList<IActionBlock> actionBlockMembers = new ArrayList<>();
 
-    private final ArrayList<GameEntity> memberSprites = new ArrayList<>();
+    private final ArrayList<GameActor> memberSprites = new ArrayList<>();
 
     @Override
     public void update(float dt) {
@@ -40,15 +40,9 @@ public class GameParty implements IGameUpdate, IGameSprite {
         }
     }
 
-    public GameParty(Monster[] monsters, GameEntity[] actors) {
+    public GameParty(GameCreature[] monsters, GameActor[] actors) {
         statBlockMembers.addAll(Arrays.stream(monsters).toList());
         actionBlockMembers.addAll(Arrays.stream(monsters).toList());
-        memberSprites.addAll(Arrays.stream(actors).toList());
-    }
-
-    public GameParty(Adventurer[] adventurers, GameEntity[] actors) {
-        statBlockMembers.addAll(Arrays.stream(adventurers).toList());
-        actionBlockMembers.addAll(Arrays.stream(adventurers).toList());
         memberSprites.addAll(Arrays.stream(actors).toList());
     }
 

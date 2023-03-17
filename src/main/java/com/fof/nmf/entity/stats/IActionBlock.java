@@ -1,4 +1,4 @@
-package com.fof.nmf.actor;
+package com.fof.nmf.entity.stats;
 
 public interface IActionBlock {
 
