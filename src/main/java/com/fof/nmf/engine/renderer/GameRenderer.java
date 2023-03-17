@@ -7,8 +7,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.fof.nmf.actor.entity.GameEntity;
-import com.fof.nmf.scene.hud.CombatHud;
 import com.fof.nmf.scene.hud.IHud;
 import com.fof.nmf.sprite.GameSprite;
 import com.fof.nmf.tilemaps.TiledMapGenerator;
