@@ -29,27 +29,23 @@ public class OptionsHud extends GameHud {
         music.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Music");
             }
         });
 
         sound.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Sound");
             }
         });
 
         resolution.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("resolution");
             }
         });
         back.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Change scene");
                 DungeonGame.getGame().setScreen(new MainMenuScene(DungeonGame.getGame()));
             }
         });

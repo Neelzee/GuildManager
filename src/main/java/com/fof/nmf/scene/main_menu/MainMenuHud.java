@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.scene.AdventurerPartyScene;
 import com.fof.nmf.scene.hud.GameHud;
+import com.fof.nmf.scene.main_world.MainWorldScene;
 import com.fof.nmf.scene.options.OptionsHud;
 import com.fof.nmf.scene.options.OptionsScene;
 
@@ -31,15 +32,13 @@ public class MainMenuHud extends GameHud {
         start.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Start");
-                DungeonGame.getGame().setScreen(new AdventurerPartyScene(DungeonGame.getGame()));
+                DungeonGame.getGame().setScreen(new MainWorldScene(DungeonGame.getGame()));
             }
         });
 
         options.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Options");
                 DungeonGame.getGame().setScreen(new OptionsScene(DungeonGame.getGame()));
             }
         });
@@ -71,6 +70,11 @@ public class MainMenuHud extends GameHud {
 
     @Override
     public void update(float dt) {
+
+    }
+
+    @Override
+    public void onExit() {
 
     }
 }

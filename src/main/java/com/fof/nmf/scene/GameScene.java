@@ -3,9 +3,7 @@ package com.fof.nmf.scene;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fof.nmf.app.DungeonGame;
-import com.fof.nmf.tilemaps.TiledMapGenerator;
 
 
 public abstract class GameScene implements Screen, IScene {

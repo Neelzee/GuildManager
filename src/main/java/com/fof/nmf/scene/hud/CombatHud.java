@@ -72,4 +72,9 @@ public class CombatHud implements IHud {
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
+
+    @Override
+    public void onExit() {
+        stage.dispose();
+    }
 }

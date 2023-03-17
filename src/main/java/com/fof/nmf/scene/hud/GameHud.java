@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fof.nmf.engine.renderer.GameRenderer;
 
-public abstract class GameHud implements IHud{
+public abstract class GameHud implements IHud {
 
     protected final Stage stage;
 
@@ -30,5 +30,10 @@ public abstract class GameHud implements IHud{
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void onExit() {
+        stage.dispose();
     }
 }

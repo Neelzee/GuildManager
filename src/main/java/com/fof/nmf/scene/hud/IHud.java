@@ -11,5 +11,13 @@ public interface IHud {
      */
     void update(float dt);
 
+    /**
+     * Resize
+     */
     void resize(int width, int height);
+
+    /**
+     * Exit calls
+     */
+    void onExit();
 }
