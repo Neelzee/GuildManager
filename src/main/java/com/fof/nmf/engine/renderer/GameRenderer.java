@@ -115,6 +115,7 @@ public class GameRenderer implements Disposable {
 
     public void resize(int width, int height) {
         gamePort.update(width, height);
+        hud.resize(width, height);
     }
 
     public void addIGameUpdate(IGameUpdate updater) {

@@ -25,4 +25,10 @@ public abstract class GameHud implements IHud{
     public Stage getStage() {
         return stage;
     }
+
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
 }

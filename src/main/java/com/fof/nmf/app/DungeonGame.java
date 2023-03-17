@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fof.nmf.engine.input.GameInputHandler;
 import com.fof.nmf.engine.renderer.GameRenderer;
 import com.fof.nmf.scene.AdventurerPartyScene;
+import com.fof.nmf.scene.MainMenuScene;
 
 public class DungeonGame extends Game {
 
@@ -20,7 +21,7 @@ public class DungeonGame extends Game {
         game = this;
         gameRenderer = new GameRenderer(new SpriteBatch());
         gameInputHandler = new GameInputHandler();
-        setScreen(new AdventurerPartyScene(this));
+        setScreen(new MainMenuScene(this));
         Gdx.input.setInputProcessor(gameInputHandler.getMultiplexer());
     }
 
