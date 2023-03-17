@@ -115,4 +115,9 @@ public class AdventurerPartyScene extends GameScene {
             combatEngine.nextTurn();
         }
     }
+
+    @Override
+    public void onExit() {
+
+    }
 }

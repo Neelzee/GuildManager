@@ -8,10 +8,13 @@ import com.fof.nmf.sprite.GameSprite;
 import com.fof.nmf.utils.SpritePaths;
 
 public class OptionsScene extends GameScene {
+
+    private GameSprite background;
+
     public OptionsScene(DungeonGame game) {
         super(game);
 
-        GameSprite s = new GameSprite(
+        background = new GameSprite(
                 new Texture(
                         Gdx.files.internal(
                                 SpritePaths.getSpritesPath() + "/mmb.png"
@@ -21,7 +24,12 @@ public class OptionsScene extends GameScene {
 
 
 
-        game.getGameRenderer().addGameSprite(s);
+        game.getGameRenderer().addGameSprite(background);
         game.getGameRenderer().setHud(new OptionsHud(game.getGameRenderer().getSpriteBatch()));
+    }
+
+    @Override
+    public void onExit() {
+        game.getGameRenderer().removeGameSprites(background);
     }
 }

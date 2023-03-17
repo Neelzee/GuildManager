@@ -63,4 +63,9 @@ public class FrameTestScene extends GameScene {
     public void handleInput(float dt) {
 
     }
+
+    @Override
+    public void onExit() {
+
+    }
 }

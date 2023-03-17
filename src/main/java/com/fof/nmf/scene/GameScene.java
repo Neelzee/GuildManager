@@ -8,7 +8,7 @@ import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.tilemaps.TiledMapGenerator;
 
 
-public abstract class GameScene implements Screen {
+public abstract class GameScene implements Screen, IScene {
 
     protected final DungeonGame game;
 

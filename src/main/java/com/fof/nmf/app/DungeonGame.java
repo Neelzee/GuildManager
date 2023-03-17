@@ -2,6 +2,7 @@ package com.fof.nmf.app;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fof.nmf.engine.input.GameInputHandler;
 import com.fof.nmf.engine.renderer.GameRenderer;
@@ -16,6 +17,8 @@ public class DungeonGame extends Game {
 
     private GameInputHandler gameInputHandler;
 
+    private GameScene scene;
+
     @Override
     public void create() {
         game = this;
@@ -23,6 +26,21 @@ public class DungeonGame extends Game {
         gameInputHandler = new GameInputHandler();
         setScreen(new MainMenuScene(this));
         Gdx.input.setInputProcessor(gameInputHandler.getMultiplexer());
+    }
+
+    /**
+     * Changes the scene
+     * @param scene
+     */
+    @Override
+    public void setScreen(Screen scene) {
+        if (this.scene != null) {
+            this.scene.onExit();
+        }
+        if (scene instanceof GameScene) {
+            this.scene = (GameScene) scene;
+        }
+        super.setScreen(scene);
     }
 
     @Override
