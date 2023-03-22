@@ -33,6 +33,7 @@ public class MainWorldHud extends GameHud {
         questBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Enter Quest Manager");
                 DungeonGame.getGame().getGameRenderer().setHud(new MainWorldQuestHUD(spriteBatch));
             }
         });
@@ -40,6 +41,7 @@ public class MainWorldHud extends GameHud {
         table.add(questBtn);
 
         stage.addActor(table);
+        DungeonGame.getGame().getGameInputHandler().addInputProcess(getStage());
 
     }
 

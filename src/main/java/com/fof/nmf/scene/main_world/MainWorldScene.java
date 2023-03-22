@@ -51,7 +51,7 @@ public class MainWorldScene extends GameScene {
             }
 
             game.getGameInputHandler().addInputProcess(cameraHandler);
-            game.getGameRenderer().setHud(new MainWorldQuestHUD(game.getGameRenderer().getSpriteBatch()));
+            game.getGameRenderer().setHud(new MainWorldHud(game.getGameRenderer().getSpriteBatch()));
         }
 
         // Places cities
