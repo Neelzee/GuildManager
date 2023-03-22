@@ -29,53 +29,58 @@ public class MainWorldScene extends GameScene {
     public MainWorldScene(DungeonGame game) {
         super(game);
 
-        cameraHandler = new GameInputHandlerCamera(game.getGameRenderer().getCamera(), .75f);
+        // Standard scene creation
+        {
+            cameraHandler = new GameInputHandlerCamera(game.getGameRenderer().getCamera(), .75f);
 
-        if (MainWorld.getMap() == null) {
-            // Tiled map
-            Texture tileTextures = new Texture(
-                    Gdx.files.internal("src/main/resources/sprites/Ground/Grass.png")
-            );
+            if (MainWorld.getMap() == null) {
+                // Tiled map
+                Texture tileTextures = new Texture(
+                        Gdx.files.internal("src/main/resources/sprites/Ground/Grass.png")
+                );
 
-            TextureRegion[][] splitTiles = TextureRegion.split(tileTextures, 16, 16);
-            TiledMap currentMap = TiledMapGenerator.generateWorldMap(
-                    splitTiles,
-                    64, 64,
-                    16, 16
-            );
-            MainWorld.setMap(currentMap);
-            game.getGameRenderer().setCurrentMap(currentMap);
+                TextureRegion[][] splitTiles = TextureRegion.split(tileTextures, 16, 16);
+                TiledMap currentMap = TiledMapGenerator.generateWorldMap(
+                        splitTiles,
+                        64, 64,
+                        16, 16
+                );
+                MainWorld.setMap(currentMap);
+                game.getGameRenderer().setCurrentMap(currentMap);
+            }
+
+            game.getGameInputHandler().addInputProcess(cameraHandler);
+            game.getGameRenderer().setHud(new MainWorldHud(game.getGameRenderer().getSpriteBatch()));
         }
-
-        game.getGameInputHandler().addInputProcess(cameraHandler);
-        game.getGameRenderer().setHud(null);
 
         // Places cities
+        {
 
-        Texture cityTexture = new Texture(
-                Gdx.files.internal(
-                        SpritePaths.getSpritesPath() + "/buildings/cyan/cyan_barracks.png"
-                )
-        );
-
-        TextureRegion[][] citySprites = TextureRegion.split(cityTexture, 16, 16);
-
-
-        GameSprite citySprite = new GameSprite(citySprites[0][0]);
-
-        for (int i = 0; i < 5; i++) {
-            GameCity c = new GameCity(
-                    citySprite.clone(),
-                    new Vector2(MathUtils.random(16, 16*64 - 16), MathUtils.random(16, 16*64 - 16))
+            Texture cityTexture = new Texture(
+                    Gdx.files.internal(
+                            SpritePaths.getSpritesPath() + "/buildings/cyan/cyan_barracks.png"
+                    )
             );
-            System.out.println(c.getGameSprite()[0].getPosition());
-            cities.add(c);
-            game.getGameRenderer().addGameSprite(c);
+
+            TextureRegion[][] citySprites = TextureRegion.split(cityTexture, 16, 16);
+
+
+            GameSprite citySprite = new GameSprite(citySprites[0][0]);
+
+            for (int i = 0; i < 5; i++) {
+                GameCity c = new GameCity(
+                        citySprite.clone(),
+                        new Vector2(MathUtils.random(16, 16*64 - 16), MathUtils.random(16, 16*64 - 16))
+                );
+                System.out.println(c.getGameSprite()[0].getPosition());
+                cities.add(c);
+                game.getGameRenderer().addGameSprite(c);
+            }
+
+
+            game.getGameRenderer().getCamera().position.x = cities.get(0).getGameSprite()[0].getX();
+            game.getGameRenderer().getCamera().position.y = cities.get(0).getGameSprite()[0].getY();
         }
-
-
-        game.getGameRenderer().getCamera().position.x = cities.get(0).getGameSprite()[0].getX();
-        game.getGameRenderer().getCamera().position.y = cities.get(0).getGameSprite()[0].getY();
     }
 
     @Override

@@ -1,0 +1,43 @@
+package com.fof.nmf.scene.main_world.hud;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.fof.nmf.scene.hud.GameHud;
+import com.fof.nmf.scene.main_world.quest_table.QuestTable;
+
+public class MainWorldQuestHUD extends GameHud {
+
+    private final LabelStyle labelStyle = new LabelStyle(new BitmapFont(), Color.WHITE);
+
+    private final Label mainLbl = new Label("Quests", labelStyle);
+
+    private final Table quests = new Table();
+
+
+    public MainWorldQuestHUD(SpriteBatch spriteBatch) {
+        super(spriteBatch);
+
+        Table mainTable = new Table();
+        mainTable.top();
+        mainTable.setFillParent(true);
+        Table header = new Table();
+        header.add(mainLbl).row();
+
+        mainTable.add(quests).expand().row();
+
+        stage.addActor(mainTable);
+    }
+
+    @Override
+    public void update(float dt) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            quests.add(new QuestTable(labelStyle).getQuestTable());
+        }
+    }
+}
