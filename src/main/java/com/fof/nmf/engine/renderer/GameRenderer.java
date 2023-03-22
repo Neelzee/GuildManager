@@ -173,4 +173,8 @@ public class GameRenderer implements Disposable {
     public void removeIGameUpdate(IGameUpdate updater) {
         gameUpdates.remove(updater);
     }
+
+    public IHud getHud() {
+        return hud;
+    }
 }
