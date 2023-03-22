@@ -16,6 +16,7 @@ import com.fof.nmf.tilemaps.TiledDungeonMapGenerator;
 import com.fof.nmf.tilemaps.TiledMapGenerator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Has the responsibility of managing all GameSprites that should be rendered, and in what order.
@@ -163,6 +164,10 @@ public class GameRenderer implements Disposable {
 
     public void removeGameSprites(GameSprite gameSprite) {
         gameSprites.remove(gameSprite);
+    }
+
+    public void removeGameSprites(IGameSprite gameSprite) {
+        gameSprites.removeAll(List.of(gameSprite.getGameSprite()));
     }
 
     public void removeIGameUpdate(IGameUpdate updater) {

@@ -1,45 +1,50 @@
 package com.fof.nmf.scene.main_world;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.fof.nmf.guild.GameCurrency;
-import com.fof.nmf.guild.GameGuild;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.scene.hud.GameHud;
+import com.fof.nmf.scene.main_world.hud.MainWorldQuestHUD;
 
 /**
- * Main World HUD
+ * HUD that is displayed on the main world
  */
 public class MainWorldHud extends GameHud {
-
-    private Label moneyLabel;
-
     public MainWorldHud(SpriteBatch spriteBatch) {
         super(spriteBatch);
 
-        // The table at the top of the screen
-        Table infoDisplay = new Table();
-        infoDisplay.setFillParent(true);
-        infoDisplay.top();
-
-        moneyLabel = new Label("Gold Pieces: " + GameGuild.getGuildMoneyGp(), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-
-        infoDisplay.add(moneyLabel).expandX();
+        Table table = new Table();
+        table.top();
+        table.setFillParent(true);
 
 
-        stage.addActor(infoDisplay);
+        TextButton.TextButtonStyle tbStyle = new TextButton.TextButtonStyle();
+        tbStyle.font = new BitmapFont();
+        tbStyle.fontColor = Color.WHITE;
+        TextButton questBtn = new TextButton("Quests", tbStyle);
+
+        questBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                DungeonGame.getGame().getGameRenderer().setHud(new MainWorldQuestHUD(spriteBatch));
+            }
+        });
+
+        table.add(questBtn);
+
+        stage.addActor(table);
+
     }
 
     @Override
     public void update(float dt) {
-        moneyLabel.setText("Gold Pieces: " + GameGuild.getGuildMoneyGp());
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
-            GameGuild.buy(10, GameCurrency.GOLD);
-        }
     }
 }
