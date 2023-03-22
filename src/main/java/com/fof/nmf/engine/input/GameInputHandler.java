@@ -2,14 +2,26 @@ package com.fof.nmf.engine.input;
 
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.handlers.input.IGameInput;
+import com.fof.nmf.handlers.input.IGameMouseClick;
 
 import java.util.ArrayList;
 
 public class GameInputHandler implements InputProcessor {
+
     private ArrayList<IGameInput> handlers = new ArrayList<>();
+    private ArrayList<IGameMouseClick> clickers = new ArrayList<>();
 
     private InputMultiplexer multiplexer = new InputMultiplexer();
+
+    private final Viewport viewport = DungeonGame.getGame().getGameRenderer().getGamePort();
+
+    public GameInputHandler() {
+        multiplexer.addProcessor(this);
+    }
 
     public void addInputProcess(InputProcessor processor) {
         multiplexer.addProcessor(processor);
@@ -17,6 +29,10 @@ public class GameInputHandler implements InputProcessor {
 
     public void addInputHandler(IGameInput handler) {
         handlers.add(handler);
+    }
+
+    public void addInputHandler(IGameMouseClick clicker) {
+        clickers.add(clicker);
     }
 
     public InputMultiplexer getMultiplexer() {
@@ -48,9 +64,16 @@ public class GameInputHandler implements InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        Vector2 screenPos = new Vector2(screenX, screenY);
+
+        Vector2 worldPos = viewport.unproject(screenPos);
+
         for (IGameInput handler: handlers) {
-            handler.touchDown(i, i1, i2, i3);
+            handler.touchDown(screenX, screenY, pointer, button);
+        }
+        for (IGameMouseClick gm : clickers) {
+            gm.action(screenPos, worldPos, pointer, button);
         }
         return false;
     }
