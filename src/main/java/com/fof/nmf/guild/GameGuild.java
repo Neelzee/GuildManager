@@ -61,6 +61,8 @@ public class GameGuild {
 
 
     public static int getGuildMoneyGp() {
-        return guildMoneyGp;
+        return guildMoneyGp +
+                CurrencyConversion.convert(GameCurrency.COPPER, GameCurrency.GOLD, guildMoneyCp)[0] +
+                CurrencyConversion.convert(GameCurrency.SILVER, GameCurrency.GOLD, guildMoneySp)[0];
     }
 }
