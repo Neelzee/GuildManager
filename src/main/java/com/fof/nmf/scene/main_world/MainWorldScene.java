@@ -1,18 +1,30 @@
 package com.fof.nmf.scene.main_world;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.fof.nmf.app.DungeonGame;
+import com.fof.nmf.city.GameCity;
 import com.fof.nmf.handlers.GameInputHandlerCamera;
 import com.fof.nmf.scene.GameScene;
+import com.fof.nmf.sprite.GameSprite;
 import com.fof.nmf.tilemaps.TiledMapGenerator;
+import com.fof.nmf.utils.SpritePaths;
+
+import java.util.ArrayList;
 
 public class MainWorldScene extends GameScene {
 
 
     private GameInputHandlerCamera cameraHandler;
+
+    private final ArrayList<GameCity> cities = new ArrayList<>();
+
+    private int i = 0;
 
     public MainWorldScene(DungeonGame game) {
         super(game);
@@ -37,6 +49,33 @@ public class MainWorldScene extends GameScene {
 
         game.getGameInputHandler().addInputProcess(cameraHandler);
         game.getGameRenderer().setHud(null);
+
+        // Places cities
+
+        Texture cityTexture = new Texture(
+                Gdx.files.internal(
+                        SpritePaths.getSpritesPath() + "/buildings/cyan/cyan_barracks.png"
+                )
+        );
+
+        TextureRegion[][] citySprites = TextureRegion.split(cityTexture, 16, 16);
+
+
+        GameSprite citySprite = new GameSprite(citySprites[0][0]);
+
+        for (int i = 0; i < 5; i++) {
+            GameCity c = new GameCity(
+                    citySprite.clone(),
+                    new Vector2(MathUtils.random(16, 16*64 - 16), MathUtils.random(16, 16*64 - 16))
+            );
+            System.out.println(c.getGameSprite()[0].getPosition());
+            cities.add(c);
+            game.getGameRenderer().addGameSprite(c);
+        }
+
+
+        game.getGameRenderer().getCamera().position.x = cities.get(0).getGameSprite()[0].getX();
+        game.getGameRenderer().getCamera().position.y = cities.get(0).getGameSprite()[0].getY();
     }
 
     @Override
@@ -58,10 +97,27 @@ public class MainWorldScene extends GameScene {
         if (cameraHandler.isMoveSouth()) {
             game.getGameRenderer().getCamera().position.y -= speed * dt;
         }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            i++;
+
+            if (i == cities.size()) {
+                i = 0;
+            }
+
+            game.getGameRenderer().getCamera().position.x = cities.get(i).getGameSprite()[0].getX();
+            game.getGameRenderer().getCamera().position.y = cities.get(i).getGameSprite()[0].getY();
+        }
+
+        for (GameCity c : cities) {
+           c.update(dt);
+        }
     }
 
     @Override
     public void onExit() {
-
+        for (GameCity c : cities) {
+            game.getGameRenderer().removeGameSprites(c);
+        }
     }
 }

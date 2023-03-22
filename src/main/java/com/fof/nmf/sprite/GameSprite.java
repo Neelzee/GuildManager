@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.fof.nmf.engine.renderer.IGameSprite;
 
-public class GameSprite extends Sprite implements IGameSprite {
+public class GameSprite extends Sprite implements IGameSprite, Cloneable {
     public GameSprite(TextureRegion texture) {
         super(texture);
     }
@@ -42,5 +42,14 @@ public class GameSprite extends Sprite implements IGameSprite {
     @Override
     public GameSprite[] getGameSprite() {
         return new GameSprite[]{this};
+    }
+
+    @Override
+    public GameSprite clone() {
+        try {
+            return (GameSprite) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

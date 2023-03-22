@@ -8,6 +8,7 @@ import com.fof.nmf.engine.input.GameInputHandler;
 import com.fof.nmf.engine.renderer.GameRenderer;
 import com.fof.nmf.scene.GameScene;
 import com.fof.nmf.scene.main_menu.MainMenuScene;
+import com.fof.nmf.scene.main_world.MainWorldScene;
 
 public class DungeonGame extends Game {
 
@@ -24,7 +25,7 @@ public class DungeonGame extends Game {
         game = this;
         gameRenderer = new GameRenderer(new SpriteBatch());
         gameInputHandler = new GameInputHandler();
-        setScreen(new MainMenuScene(this));
+        setScreen(new MainWorldScene(this));
         Gdx.input.setInputProcessor(gameInputHandler.getMultiplexer());
     }
 
