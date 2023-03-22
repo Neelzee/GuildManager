@@ -15,8 +15,6 @@ public class MainWorldQuestHUD extends GameHud {
 
     private final LabelStyle labelStyle = new LabelStyle(new BitmapFont(), Color.WHITE);
 
-    private final Label mainLbl = new Label("Quests", labelStyle);
-
     private final Table quests = new Table();
 
 
@@ -27,8 +25,9 @@ public class MainWorldQuestHUD extends GameHud {
         mainTable.top();
         mainTable.setFillParent(true);
         Table header = new Table();
+        Label mainLbl = new Label("Quests", labelStyle);
         header.add(mainLbl).row();
-
+        mainTable.add(header).row();
         mainTable.add(quests).expand().row();
 
         stage.addActor(mainTable);
@@ -37,7 +36,7 @@ public class MainWorldQuestHUD extends GameHud {
     @Override
     public void update(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            quests.add(new QuestTable(labelStyle).getQuestTable());
+            quests.add(new QuestTable(labelStyle).getQuestTable()).row();
         }
     }
 }

@@ -11,6 +11,7 @@ import com.fof.nmf.app.DungeonGame;
 import com.fof.nmf.city.GameCity;
 import com.fof.nmf.handlers.GameInputHandlerCamera;
 import com.fof.nmf.scene.GameScene;
+import com.fof.nmf.scene.main_world.hud.MainWorldQuestHUD;
 import com.fof.nmf.sprite.GameSprite;
 import com.fof.nmf.tilemaps.TiledMapGenerator;
 import com.fof.nmf.utils.SpritePaths;
@@ -50,7 +51,7 @@ public class MainWorldScene extends GameScene {
             }
 
             game.getGameInputHandler().addInputProcess(cameraHandler);
-            game.getGameRenderer().setHud(new MainWorldHud(game.getGameRenderer().getSpriteBatch()));
+            game.getGameRenderer().setHud(new MainWorldQuestHUD(game.getGameRenderer().getSpriteBatch()));
         }
 
         // Places cities

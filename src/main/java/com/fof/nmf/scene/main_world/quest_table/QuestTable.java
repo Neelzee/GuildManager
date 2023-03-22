@@ -28,8 +28,8 @@ public class QuestTable {
 
         questTable = new Table();
         questTable.setFillParent(true);
-        questTable.add(questNameLbl);
-        questTable.add(questRewardLbl);
+        questTable.add(questNameLbl).row();
+        questTable.add(questRewardLbl).row();
     }
 
     public void changeName(String name) {
