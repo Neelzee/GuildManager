@@ -64,17 +64,16 @@ public class MainWorldScene extends GameScene {
 
             TextureRegion[][] citySprites = TextureRegion.split(cityTexture, 16, 16);
 
-
-            GameSprite citySprite = new GameSprite(citySprites[0][0]);
-
             for (int i = 0; i < 5; i++) {
                 GameCity c = new GameCity(
-                        citySprite.clone(),
-                        new Vector2(MathUtils.random(16, 16*64 - 16), MathUtils.random(16, 16*64 - 16))
-                );
+                        new GameSprite(citySprites[0][0]),
+                        new Vector2(MathUtils.random(16, 16*64 - 16), MathUtils.random(16, 16*64 - 16)),
+                        Integer.toString(MathUtils.random(0, 10)));
                 System.out.println(c.getGameSprite()[0].getPosition());
                 cities.add(c);
+                c.setHasGuild(true);
                 game.getGameRenderer().addGameSprite(c);
+                game.getGameInputHandler().addInputHandler(c);
             }
 
 
