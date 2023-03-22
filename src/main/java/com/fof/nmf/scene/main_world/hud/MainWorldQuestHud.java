@@ -13,14 +13,14 @@ import com.fof.nmf.scene.hud.GameHud;
 import com.fof.nmf.scene.main_world.MainWorldHud;
 import com.fof.nmf.scene.main_world.quest_table.QuestTable;
 
-public class MainWorldQuestHUD extends GameHud {
+public class MainWorldQuestHud extends GameHud {
 
     private final LabelStyle labelStyle = new LabelStyle(new BitmapFont(), Color.WHITE);
 
     private final Table quests = new Table();
 
 
-    public MainWorldQuestHUD(SpriteBatch spriteBatch) {
+    public MainWorldQuestHud(SpriteBatch spriteBatch) {
         super(spriteBatch);
 
         Table mainTable = new Table();
