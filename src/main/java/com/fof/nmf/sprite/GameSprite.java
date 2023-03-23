@@ -5,9 +5,14 @@ import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.fof.nmf.engine.renderer.IGameSprite;
 
-public class GameSprite extends Sprite{
+public class GameSprite extends Sprite implements IGameSprite, Cloneable {
     public GameSprite(TextureRegion texture) {
+        super(texture);
+    }
+
+    public GameSprite(Texture texture) {
         super(texture);
     }
 
@@ -32,5 +37,19 @@ public class GameSprite extends Sprite{
 
     public Vector2 getPosition() {
         return new Vector2(getX(), getY());
+    }
+
+    @Override
+    public GameSprite[] getGameSprite() {
+        return new GameSprite[]{this};
+    }
+
+    @Override
+    public GameSprite clone() {
+        try {
+            return (GameSprite) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

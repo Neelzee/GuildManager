@@ -10,4 +10,14 @@ public interface IHud {
      * @param dt delta time
      */
     void update(float dt);
+
+    /**
+     * Resize
+     */
+    void resize(int width, int height);
+
+    /**
+     * Exit calls
+     */
+    void onExit();
 }

@@ -2,10 +2,13 @@ package com.fof.nmf.app;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fof.nmf.engine.input.GameInputHandler;
 import com.fof.nmf.engine.renderer.GameRenderer;
-import com.fof.nmf.scene.AdventurerPartyScene;
+import com.fof.nmf.scene.GameScene;
+import com.fof.nmf.scene.main_menu.MainMenuScene;
+import com.fof.nmf.scene.main_world.MainWorldScene;
 
 public class DungeonGame extends Game {
 
@@ -15,13 +18,30 @@ public class DungeonGame extends Game {
 
     private GameInputHandler gameInputHandler;
 
+    private GameScene scene;
+
     @Override
     public void create() {
         game = this;
         gameRenderer = new GameRenderer(new SpriteBatch());
         gameInputHandler = new GameInputHandler();
-        setScreen(new AdventurerPartyScene(this));
+        setScreen(new MainWorldScene(this));
         Gdx.input.setInputProcessor(gameInputHandler.getMultiplexer());
+    }
+
+    /**
+     * Changes the scene
+     * @param scene
+     */
+    @Override
+    public void setScreen(Screen scene) {
+        if (this.scene != null) {
+            this.scene.onExit();
+        }
+        if (scene instanceof GameScene) {
+            this.scene = (GameScene) scene;
+        }
+        super.setScreen(scene);
     }
 
     @Override
