@@ -25,7 +25,6 @@ the more likely the auto-resolve will succeed.
 Adventurer stats work similar/same as DND stats
 
 
-
 ## MVP
 
 - [ ] Show info about the guild.
